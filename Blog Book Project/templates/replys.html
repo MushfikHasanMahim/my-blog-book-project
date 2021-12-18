@@ -1,0 +1,59 @@
+{% extends "base.html" %} {% block head %}
+<title>BlogBook-Comment's Replys</title>
+{% endblock %} {% block body %}
+
+<div class="container text-light">
+  <h1 class="text-center p-2">Replys</h1>
+</div>
+<div class="text-dark container bg-light rounded p-2">
+  {% if replys %} {% for r in replys %}
+  <div class="container d-flex p-2">
+    <!-- Profile pictures -->
+    {% if r.user.profile_pic %}
+    <img
+      src="/static/Profile_pic/{{ r.user.profile_pic }}"
+      style="
+        margin-right: 2.5px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 3px solid #c3cdd0;
+      "
+    />
+    {% else %}
+    <div
+      style="
+        border: 2px solid #24252a;
+        margin-right: 5px;
+        background: lightgray;
+        width: 50px;
+        height: 50px;
+      "
+      class="mb-2 rounded-circle"
+    >
+      <i
+        style="margin-left: 7.4px; margin-top: 5.1px"
+        class="text-center fa fa-user fs-6"
+      >
+      </i>
+    </div>
+    {% endif %}
+    <!-- end of profile picture -->
+    <div class="container">
+      <h6 style="padding: 0; margin: 0; margin-top: 5px">
+        <b><a href="/account/{{r.user.name}}">{{r.user.name}}</a></b>
+      </h6>
+      <div class="text-muted">
+        <small>{{r.time_ago()}} </small>
+      </div>
+      <p style="padding: 0; margin: 0">{{r.content}}</p>
+      <span style="padding: 0; margin: 0"
+        ><a href="/delete-reply/{{r.id}}">Delete</a></span
+      >
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <div class="container">No one replyed yet!</div>
+  {% endif %}
+</div>
+{% endblock %}
